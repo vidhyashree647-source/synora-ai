@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>SYNORA AI</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+
+            <div class="logo-icon">
+                S
+            </div>
+
+            <div>
+                <h1>SYNORA</h1>
+                <p>AI INTELLIGENCE</p>
+            </div>
+
+        </div>
+
+
+        <nav>
+
+            <button class="nav-btn active"
+                    onclick="showSection('chat', this)">
+
+                💬
+                <span>AI Chat</span>
+
+            </button>
+
+
+            <button class="nav-btn"
+                    onclick="showSection('voice', this)">
+
+                🎙️
+                <span>Voice Lab</span>
+
+            </button>
+
+
+            <button class="nav-btn"
+                    onclick="showSection('text', this)">
+
+                📝
+                <span>Text Scan</span>
+
+            </button>
+
+                  <button class="nav-btn" onclick="openEmotion(this)">
+    😊
+    <span>Emotion</span>
+</button>
+            
+
+</button>
+
+
+            <button class="nav-btn"
+                    onclick="showSection('insights', this)">
+
+                📊
+                <span>Insights</span>
+
+            </button>
+
+        </nav>
+
+
+        <div class="system-status">
+
+            <span class="status-dot"></span>
+
+            <div>
+                <strong>SYSTEM ONLINE</strong>
+                <small>All AI modules ready</small>
+            </div>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+
+    <main class="main-content">
+
+        <header class="topbar">
+
+            <div>
+
+                <p class="small-title">
+                    TEXT & SPEECH ANALYSIS
+                </p>
+
+                <h2>
+                    SYNORA <span>AI</span>
+                </h2>
+
+            </div>
+
+
+            <div class="top-status">
+
+                <span class="pulse"></span>
+
+                AI CORE 98.7%
+
+            </div>
+
+        </header>
+
+
+        <!-- ================= CHAT ================= -->
+
+        <section id="chat"
+                 class="section active-section">
+
+            <div class="hero">
+
+                <p class="tag">
+                    ● SYNORA INTELLIGENCE ENGINE
+                </p>
+
+                <h3>
+                    Understand your
+                    <span>thoughts</span>.
+                </h3>
+
+                <p class="hero-text">
+
+                    Analyze text, speech, emotions
+                    and sentiment using SYNORA AI.
+
+                </p>
+
+            </div>
+
+
+            <div class="ai-core">
+
+                <div class="core-ring ring-one"></div>
+
+                <div class="core-ring ring-two"></div>
+
+                <div class="core-circle">
+
+                    <div class="core-letter">
+                        S
+                    </div>
+
+                    <p>AI CORE</p>
+
+                </div>
+
+            </div>
+
+
+            <div class="input-box">
+
+                <textarea
+                    id="textInput"
+                    placeholder="Tell SYNORA what you're thinking..."
+                    rows="4"></textarea>
+
+
+                <div class="input-actions">
+
+                    <button class="voice-btn"
+                            onclick="startVoice()">
+
+                        🎙️
+
+                    </button>
+
+
+                    <button class="analyze-btn"
+                            onclick="analyzeText()">
+
+                        Analyze →
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- RESULT -->
+
+            <div id="resultPanel"
+                 class="result-panel">
+
+                <div class="result-header">
+
+                    <h3>
+                        SYNORA SIGNAL REPORT
+                    </h3>
+
+                    <span>
+                        ANALYSIS COMPLETE
+                    </span>
+
+                </div>
+
+
+                <div class="result-grid">
+
+
+                    <div class="result-card">
+
+                        <p>Sentiment</p>
+
+                        <h4 id="sentiment">
+                            -
+                        </h4>
+
+                        <small id="sentimentScore">
+                            Score: 0.00
+                        </small>
+
+                        <div class="progress">
+
+                            <div id="sentimentBar"></div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="result-card">
+
+                        <p>Emotion</p>
+
+                        <h4 id="emotion">
+                            -
+                        </h4>
+
+                        <small id="emotionIcon">
+                            😌
+                        </small>
+
+                    </div>
+
+
+                    <div class="result-card">
+
+                        <p>Confidence</p>
+
+                        <h4 id="confidence">
+                            0%
+                        </h4>
+
+                    </div>
+
+
+                    <div class="result-card">
+
+                        <p>Words</p>
+
+                        <h4 id="wordCount">
+                            0
+                        </h4>
+
+                    </div>
+
+
+                    <div class="result-card">
+
+                        <p>Characters</p>
+
+                        <h4 id="charCount">
+                            0
+                        </h4>
+
+                    </div>
+
+
+                    <div class="result-card">
+
+                        <p>Sentences</p>
+
+                        <h4 id="sentenceCount">
+                            0
+                        </h4>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= VOICE ================= -->
+
+        <section id="voice"
+                 class="section">
+
+            <div class="page-title">
+
+                <p>VOICE ANALYSIS</p>
+
+                <h2>
+                    Voice <span>Lab</span>
+                </h2>
+
+            </div>
+
+
+            <div class="voice-card">
+
+                <div class="mic-circle">
+                    🎙️
+                </div>
+
+                <h2>
+                    SYNORA IS LISTENING
+                </h2>
+
+                <p>
+                    Speak naturally and SYNORA will
+                    convert your speech into text.
+                </p>
+
+                <button class="big-btn"
+                        onclick="startVoice()">
+
+                    Start Voice Analysis
+
+                </button>
+
+                <p id="voiceStatus">
+                    Microphone ready
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= TEXT ================= -->
+
+        <section id="text"
+                 class="section">
+
+            <div class="page-title">
+
+                <p>TEXT ANALYSIS</p>
+
+                <h2>
+                    Text <span>Scanner</span>
+                </h2>
+
+            </div>
+
+
+            <div class="text-card">
+
+                <textarea
+                    id="scanInput"
+                    placeholder="Enter text for detailed analysis..."
+                    rows="8"></textarea>
+
+
+                <button class="big-btn"
+                        onclick="scanText()">
+
+                    Scan Text
+
+                </button>
+
+
+                <div class="scan-results">
+
+                    <div>
+
+                        <strong id="scanWords">
+                            0
+                        </strong>
+
+                        <span>
+                            Words
+                        </span>
+
+                    </div>
+
+
+                    <div>
+
+                        <strong id="scanCharacters">
+                            0
+                        </strong>
+
+                        <span>
+                            Characters
+                        </span>
+
+                    </div>
+
+
+                    <div>
+
+                        <strong id="scanSentences">
+                            0
+                        </strong>
+
+                        <span>
+                            Sentences
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= EMOTION ================= -->
+
+        <section id="emotion"
+                 class="section">
+
+            <div class="page-title">
+
+                <p>EMOTIONAL INTELLIGENCE</p>
+
+                <h2>
+                    Emotion <span>Engine</span>
+                </h2>
+
+            </div>
+
+
+            <div class="emotion-card">
+
+                <div class="emotion-icon"
+                     id="emotionMain">
+
+                    😊
+
+                </div>
+
+
+                <h2 id="emotionMainText">
+
+                    Ready to understand emotions
+
+                </h2>
+
+
+                <p>
+
+                    SYNORA analyzes your text and
+                    identifies the emotional pattern
+                    behind your message.
+
+                </p>
+
+
+                <div class="emotion-status">
+
+                    <span class="status-dot"></span>
+
+                    EMOTION ENGINE READY
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= INSIGHTS ================= -->
+
+        <section id="insights"
+                 class="section">
+
+            <div class="page-title">
+
+                <p>AI ANALYTICS</p>
+
+                <h2>
+                    Smart <span>Insights</span>
+                </h2>
+
+            </div>
+
+
+            <div class="insight-grid">
+
+
+                <div class="insight-card">
+
+                    <span>🧠</span>
+
+                    <h3>
+                        Text Engine
+                    </h3>
+
+                    <p>
+                        READY
+                    </p>
+
+                </div>
+
+
+                <div class="insight-card">
+
+                    <span>🎙️</span>
+
+                    <h3>
+                        Speech Engine
+                    </h3>
+
+                    <p>
+                        READY
+                    </p>
+
+                </div>
+
+
+                <div class="insight-card">
+
+                    <span>❤️</span>
+
+                    <h3>
+                        Emotion Engine
+                    </h3>
+
+                    <p>
+                        READY
+                    </p>
+
+                </div>
+
+
+                <div class="insight-card">
+
+                    <span>⚡</span>
+
+                    <h3>
+                        AI Processing
+                    </h3>
+
+                    <p>
+                        98.7%
+                    </p>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+
+</html>
